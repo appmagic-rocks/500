@@ -27,7 +27,12 @@
     </style>
     <script>
         if (navigator && navigator.sendBeacon) {
-            navigator.sendBeacon('https://analytics.appmagic.rocks/events', JSON.stringify({name: 'cloudflare_500_error', value: []}));
+            function uuidv4() {
+              return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+              );
+            }
+            navigator.sendBeacon('https://analytics.appmagic.rocks/events', JSON.stringify({name: 'cloudflare_500_error', value: [], lang: 'en', page: window.location.pathname, uid: uuidv4()}));
         }
     </script>
 </head>
